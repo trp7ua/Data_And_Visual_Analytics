@@ -1,0 +1,7 @@
+1) .slice() method is used to select the 9 districts from the .csv file
+2) d3.csv() method is used to read from the .csv file
+3) .map() method is used to map the appropriate colors.
+4) .max() method is used to adjust the axis according to the data values
+5) .rangeBand() method is used for range of the fetures
+6).sort() method is used to sort the data
+7) Other usual methods associated with .data() and "svg", e.g. .attr(), .append(), .text() etc.

@@ -1,0 +1,29 @@
+
+
+
+A. Our approach for the random forest classification is as follows:
+
+1.	Which attributes of the whole set of attributes do you select to find a split? 
+
+a. We randomly sample a subset of attributes of order of size sqrt(m) where m is total number of attribute.  
+
+b. We select the attribute among the sample set of attribute that results in maximum information gain upon split. We used the Entropy information gain as a metric to choose the attribute as well as its threshhold value.
+
+c. We then split the data set in based on this threshold value of the selected attribute.
+
+d. We repeat the same procedure on splitted dataset to generate the next subtree by randomly sampling set attributes of order of size sqrt(m) from the whole set of attributes.
+
+2.     When do you stop splitting leaf nodes? 
+We stop splitting the nodes whenever:
+a.  A pure node is reached i.e. all the labels after split is of 
+    same value. OR
+b.  When sufficient depth of tree is reached, i.e. in our case it  
+    is 2.
+
+3. How many trees should be in the forest??
+According to sources on the internet they suggest that a random forest should have a number of trees between 64 - 128 trees. 
+With that, you should have a good balance between ROC AUC and processing time.
+
+Our experience shows that higher number or trees doesn’t improve the efficacy of the classification and number close to 65 gives reasonable accuracy. The cross validation results shows that high accuracy is achieved when there is very less number of trees.
+
+

@@ -1,0 +1,54 @@
+The scala code along with the detailed description of each line given in the comments of the code:
+
+
+===========================================
+
+
+package edu.gatech.cse6242
+
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext._
+import org.apache.spark.SparkConf
+
+object Task2 {
+  def main(args: Array[String]) {
+	val sc = new SparkContext(new               	SparkConf().setAppName("Task2"))
+
+
+	// reading the input file form HDFS and saving it into a 	// RDD name 'file'
+
+    val file = sc.textFile("hdfs://localhost:8020" + args(0))
+
+
+
+	// Splitting each line and generating two RDDs name 	
+	// 'data1' and 'data2' where we store all Key/Value Pairs
+	// The key of 'data1' is the src whereas value is weight
+	// The key of 'data2' is the tgt whereas value is weight
+
+
+    val data1 = file.map(x => (x.split("\\s")(0), x.split("\\s")(2)))
+    val data2 = file.map(x => (x.split("\\s")(1), x.split("\\s")(2)))
+
+
+	// Change the Values of 'data1' and 'data2' by multiplying
+	// 0.8 and 0.2 respectively
+
+    val data1T1 = data1.mapValues(x=>0.8*x.toInt) 
+    val data2T1 = data2.mapValues(x=>0.2*x.toInt)
+
+	// Merge both RDDs 'data1' and 'data2' into one
+
+    val dataT2 = data1T1.union(data2T1)
+
+
+	// Obtain the output by through reduce by key operation
+    val output = dataT2.reduceByKey(_ + _);
+
+	// Storing the output in a file
+
+    output.saveAsTextFile("hdfs://localhost:8020" + args(1))
+  }
+}
+
+

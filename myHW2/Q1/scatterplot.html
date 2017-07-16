@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="../lib/d3/d3.v3.min.js"></script>
+        
+        <style type="text/css">
+        
+            div.bar {
+                display: inline-block;
+                width: 20px;
+                height: 75px;   /* Gets overriden by D3-assigned height below */
+                margin-right: 2px;
+                background-color: red;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+  
+
+var dataset;  //Global variable
+var w =1000;
+var h= 1000;
+
+var dataMonths=[{"month": "Jan","color":"rgb(0,0,0)"},{"month": "Feb","color":"rgb(255,0,0)"},
+				{"month": "Mar","color":"rgb(0,255,0)"},{"month": "Apr","color":"rgb(0,0,255)"},
+				{"month": "May","color":"rgb(255,255,0)"},{"month": "Jun","color":"rgb(255,0,255)"},
+				{"month": "Jul","color":"rgb(128,0,0)"},{"month": "Aug","color":"rgb(128,128,0)"},
+				{"month": "Sep","color":"rgb(0,128,0)"},{"month": "Oct","color":"rgb(128,0,128)"},
+				{"month": "Nov","color":"rgb(0,128,128)"},{"month": "Dec","color":"rgb(0,0,128)"}];
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+
+			
+			
+d3.csv("ForestFires.csv", function(data) {
+ dataset = data;
+var xScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset, function(d) { return d.wind; })])
+                     .range([0, w]);
+var yScale = d3.scale.log()
+                     .range([0, h]);
+
+
+svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+ .attr("cx", function(d) {
+         return xScale(d.wind);
+   })
+    .attr("cy", function(d) {
+         return  yScale(d.area);
+   })
+	.attr("r", function(d){return Math.sqrt(d.area)*2;})
+	.attr("fill", function(d) {
+         if (d.month == "jan"){return "rgb(0,0,0)";}
+		 else if (d.month == "feb"){return "rgb(255,0,0)";}
+		 else if (d.month == "mar"){return "rgb(0,255,0)";}
+		  else if (d.month == "apr"){return "rgb(0,0,255)";}
+		   else if (d.month == "may"){return "rgb(255,255,0)";}
+		    else if (d.month == "jun"){return "rgb(255,0,255)";}
+			 else if (d.month == "jul"){return "rgb(128,0,0)";}
+			  else if (d.month == "aug"){return "rgb(128,128,0)";}
+		else if (d.month == "sep"){return "rgb(0,128,0)";}
+		 else if (d.month == "oct"){return "rgb(128,0,128)";}
+		  else if (d.month == "nov"){return "rgb(0,128,128)";}	
+		else {return "rgb(0,0,128)";}	});
+	
+
+});
+svg.selectAll("text").data(dataMonths).enter().append("text").text(function(d){return d.month;}).attr("x", w-50)
+   .attr("y", function(d,i){return (i+1)*20;}).attr("fill",function(d){return d.color;});	
+
+
+   document.write("<p><h3>The log scale is useful in visualizing the data when data is more clustered at lower scale due to some high value anomalies. Log scale removes such difficulty.<\h3></p>")
+        </script>
+    </body>
+</html>     

@@ -1,0 +1,18 @@
+Number_of_unique_movies 1682 
+Number_of_unique_users 943
+
+                 movie title  rating
+0           Star Wars (1977)     583
+1             Contact (1997)     509
+2               Fargo (1996)     508
+3  Return of the Jedi (1983)     507
+4           Liar Liar (1997)     485
+
+
+movie title              					rating      age
+
+Happy Gilmore (1996)     					149	 26.61745
+Army of Darkness (1993)     				116 	 27.181034
+William Shakespeare's Romeo and Juliet (1996)    106    27.707547
+Frighteners, The (1996)  					115    27.904348
+Scream 2 (1997)          					106    27.962264

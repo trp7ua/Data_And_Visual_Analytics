@@ -1,0 +1,221 @@
+Section A
+
+1.
+
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.RandomForest -P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1
+Relation:     hw4-data
+Instances:    4000
+Attributes:   12
+              fixed acidity
+              volatile acidity
+              citric acid
+              residual sugar
+              chlorides
+              free sulfur dioxide
+              total sulfur dioxide
+              density
+              pH
+              sulphates
+              alcohol
+              quality
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+RandomForest
+
+Bagging with 100 iterations and base learner
+
+weka.classifiers.trees.RandomTree -K 0 -M 1.0 -V 0.001 -S 1 -do-not-check-capabilities
+
+Time taken to build model: 1.48 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.6838
+Mean absolute error                      0.1986
+Root mean squared error                  0.3004
+Relative absolute error                 59.0284 %
+Root relative squared error             73.2332 %
+Total Number of Instances             4000     
+
+
+
+
+2. 
+
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation:     hw4-data
+Instances:    4000
+Attributes:   12
+              fixed acidity
+              volatile acidity
+              citric acid
+              residual sugar
+              chlorides
+              free sulfur dioxide
+              total sulfur dioxide
+              density
+              pH
+              sulphates
+              alcohol
+              quality
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMOreg
+
+weights (not support vectors):
+ +       0.0016 * (normalized) fixed acidity
+ -       0.0016 * (normalized) volatile acidity
+ -       0.0006 * (normalized) citric acid
+ +       0.0081 * (normalized) residual sugar
+ -       0.0016 * (normalized) chlorides
+ -       0.0001 * (normalized) free sulfur dioxide
+ +       0.0014 * (normalized) total sulfur dioxide
+ -       0.0133 * (normalized) density
+ +       0.0017 * (normalized) pH
+ +       0.0007 * (normalized) sulphates
+ +       0.0012 * (normalized) alcohol
+ +       0.0003
+
+
+
+Number of kernel evaluations: 54918065 (59.232% cached)
+
+Time taken to build model: 11.34 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.3846
+Mean absolute error                      0.2143
+Root mean squared error                  0.462 
+Relative absolute error                 63.6913 %
+Root relative squared error            112.6132 %
+Total Number of Instances             4000     
+
+
+
+
+3. 
+
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.DecisionStump 
+Relation:     hw4-data
+Instances:    4000
+Attributes:   12
+              fixed acidity
+              volatile acidity
+              citric acid
+              residual sugar
+              chlorides
+              free sulfur dioxide
+              total sulfur dioxide
+              density
+              pH
+              sulphates
+              alcohol
+              quality
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Decision Stump
+
+Classifications
+
+alcohol <= 10.850000000000001 : 0.0998801438274071
+alcohol > 10.850000000000001 : 0.40480961923847697
+alcohol is missing : 0.214
+
+
+Time taken to build model: 0.09 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.3509
+Mean absolute error                      0.2937
+Root mean squared error                  0.3841
+Relative absolute error                 87.2857 %
+Root relative squared error             93.6196 %
+Total Number of Instances             4000     
+
+
+
+
+4.
+
+=== Run information ===
+
+Scheme:       weka.classifiers.meta.Bagging -P 100 -S 1 -num-slots 1 -I 10 -W weka.classifiers.trees.REPTree -- -M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0
+Relation:     hw4-data
+Instances:    4000
+Attributes:   12
+              fixed acidity
+              volatile acidity
+              citric acid
+              residual sugar
+              chlorides
+              free sulfur dioxide
+              total sulfur dioxide
+              density
+              pH
+              sulphates
+              alcohol
+              quality
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Bagging with 10 iterations and base learner
+
+weka.classifiers.trees.REPTree -M 2 -V 0.001 -N 3 -S 1 -L -1 -I 0.0
+
+Time taken to build model: 0.8 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.5762
+Mean absolute error                      0.229 
+Root mean squared error                  0.3353
+Relative absolute error                 68.0478 %
+Root relative squared error             81.7326 %
+Total Number of Instances             4000     
+
+
+
+
+
+Section B
+
+1. The result of Weka is 73.2332 % compared to my result 65.00%  because I chose the entropy index and depth of tree being 2 only. The efficiency would have been increased if the splitting strategy would have been based on Gini Index.
+
+2. I choose the 'Decision Stump' as well as 'Bagging' algorithm for the classification. The decision stump is just one depth tree formed based on choosing only attribute with given threshold. The Bagging is method wherein the Bootstrap Sampling is used to aggregate the statistics.
+
+3.  The relative performance is given as under:
+
+Metric 		Random Forest		SMO		DecisionStump
+
+Run Time(Sec.):   1.48                11.34           0.09 
+
+Accuracy(%):    	59.0284 			63.6913   		87.2857
+
+
+ We see that Decision Stump is the best classification here wherein the runtime error is minimum and accuracy is maximum. This is due to there is only two label (0 or 1) and hence decision stump is the most efficient algorithm here.
+
+
+
+
+
+
+
